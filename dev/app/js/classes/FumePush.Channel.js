@@ -29,7 +29,7 @@ define([], function(){
         var that = this;
         this.socket.on(event, function(data){
             if(data.room != "FumePush:PUBLIC" && that.channelName != data.room) return 0;
-            console.log(that.channelName + ".on('%s', '%s')", event, data.data);
+            //console.log(that.channelName + ".on('%s', '%s')", event, data.data);
             callback.call(that, data.data)
         })
     };

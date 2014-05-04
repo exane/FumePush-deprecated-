@@ -14,7 +14,7 @@ define(["socket.io", "FumePush.Channel"], function(io, Channel){
     r.trigger = function(event, data){
         var that = this;
         var isBroadcasting = isBroadcasting || false;
-        console.log("FumePush" + ".trigger('%s', '%s')", event, data);
+        //console.log("FumePush" + ".trigger('%s', '%s')", event, data);
         this.socket.emit("Trigger:Event", {
             room: "FumePush:PUBLIC",
             event: event,
@@ -29,7 +29,7 @@ define(["socket.io", "FumePush.Channel"], function(io, Channel){
         var that = this;
         this.socket.on(event, function(data){
             //if(data.room != "FumePush:PUBLIC" && that.channelName != data.room) return 0;
-            console.log("FumePush" + ".on('%s', '%s')", event, data.data);
+            //console.log("FumePush" + ".on('%s', '%s')", event, data.data);
             callback.call(that, data.data)
         })
     };
@@ -42,7 +42,7 @@ define(["socket.io", "FumePush.Channel"], function(io, Channel){
     };
 
     r.unsubscribe = function(channelName){
-        console.log("~~unsubscribe: " + channelName);
+        //console.log("~~unsubscribe: " + channelName);
         this._rooms.splice(channelName);
         this.socket.emit("Leave:Room", channelName);
         for(var i = 0; i < this._rooms.length; i++) {
@@ -54,7 +54,7 @@ define(["socket.io", "FumePush.Channel"], function(io, Channel){
     };
 
     r.disconnect = function(){
-        console.log("not implemented yet");
+        //console.log("not implemented yet");
     };
 
     return FumePush;

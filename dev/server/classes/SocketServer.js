@@ -1,6 +1,3 @@
-//global.User = global.User || require("./User.js");
-//global.Userlist = global.Userlist || require("./Userlist.js");
-
 var Socket = (function(){
 
     var Socket = function(port){
