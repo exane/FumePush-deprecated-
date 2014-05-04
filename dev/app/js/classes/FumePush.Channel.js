@@ -1,4 +1,5 @@
-define([], function(){
+
+var Channel = (function(){
     var Channel = function(socket, ChannelName){
         this.channelName = ChannelName;
         this.socket = socket;
@@ -40,4 +41,4 @@ define([], function(){
 
 
     return Channel;
-});
+})();

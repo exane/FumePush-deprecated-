@@ -1,4 +1,8 @@
-define(["socket.io", "FumePush.Channel"], function(io, Channel){
+
+var FumePush = (function(){
+
+    //= include ./FumePush.Channel.js
+
     var FumePush = function(url, port){
         _connect.call(this, url, port);
 
@@ -12,7 +16,6 @@ define(["socket.io", "FumePush.Channel"], function(io, Channel){
     };
 
     r.trigger = function(event, data){
-        var that = this;
         var isBroadcasting = isBroadcasting || false;
         //console.log("FumePush" + ".trigger('%s', '%s')", event, data);
         this.socket.emit("Trigger:Event", {
@@ -58,4 +61,4 @@ define(["socket.io", "FumePush.Channel"], function(io, Channel){
     };
 
     return FumePush;
-});
+})();

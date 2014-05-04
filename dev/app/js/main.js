@@ -3,18 +3,21 @@ requirejs.config({
     shim: {
         "socket.io": {
             exports: "io"
+        },
+        "FumePush": {
+            exports: "FumePush",
+            deps: ["socket.io"]
         }
     },
     paths: {
         "socket.io": "//localhost:4567/socket.io/socket.io",
-        "FumePush": "./classes/FumePush",
-        "FumePush.Channel": "./classes/FumePush.Channel"
+        "FumePush": "../../../production/FumePushClient.min"
     }
 });
 
 //main function
 
-requirejs(["FumePush"], function main(FumePush){
+requirejs(["FumePush"], function(FumePush){
     var fumePush = new FumePush("//localhost", 4567);
 
     var yolo = fumePush.subscribe("yolo");
@@ -47,13 +50,11 @@ requirejs(["FumePush"], function main(FumePush){
     //swag.broadcast("sendToAll:msg", "yolo swag united!");
 
 
-
-
     setInterval(function(){
         //swag.trigger("Send:msg", "yolo msg");
-    },1000);
+    }, 1000);
 
     setTimeout(function(){
         //swag.trigger("Mega:Swag", "swag msg");
-    },1000);
+    }, 1000);
 });
