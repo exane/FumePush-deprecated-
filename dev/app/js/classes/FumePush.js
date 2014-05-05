@@ -1,4 +1,3 @@
-
 var FumePush = (function(){
 
     //= include ./FumePush.Channel.js
@@ -12,7 +11,7 @@ var FumePush = (function(){
     r._rooms = [];
 
     var _connect = function(url, port){
-        this.socket = io.connect(url+":"+port);
+        this.socket = io.connect(url + ":" + port);
     };
 
     r.trigger = function(event, data){

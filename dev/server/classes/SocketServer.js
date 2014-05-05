@@ -100,4 +100,4 @@ var Socket = (function(){
     return Socket;
 })();
 
-module.exports.FumePush = Socket;
+module.exports = Socket;

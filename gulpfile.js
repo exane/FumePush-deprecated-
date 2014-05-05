@@ -11,10 +11,17 @@ gulp.task("scripts", function(){
         .pipe(uglify())
         .pipe(concat("FumePushClient.min.js"))
         .pipe(gulp.dest("production"));
+
+    gulp.src("dev/server/classes/SocketServer.js")
+        .pipe(include())
+        .pipe(uglify())
+        .pipe(concat("FumePushServer.min.js"))
+        .pipe(gulp.dest("production"));
 });
 
 gulp.task("watch", function(){
     gulp.watch("dev/app/js/classes/*.js", ["scripts"]);
+    gulp.watch("dev/server/classes/*.js", ["scripts"]);
 });
 
 gulp.task('default', ["scripts", "watch"]);
