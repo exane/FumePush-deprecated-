@@ -10,7 +10,8 @@ gulp.task("scripts", function(){
         .pipe(include())
         .pipe(uglify())
         .pipe(concat("FumePushClient.min.js"))
-        .pipe(gulp.dest("production"));
+        .pipe(gulp.dest("production"))
+        .pipe(gulp.dest("dev/app/libs"));
 
     gulp.src("dev/server/classes/SocketServer.js")
         .pipe(include())

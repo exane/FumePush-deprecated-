@@ -1,23 +1,6 @@
-requirejs.config({
-    urlArgs: "bust=" + (new Date()).getTime(),
-    shim: {
-        "socket.io": {
-            exports: "io"
-        },
-        "FumePush": {
-            exports: "FumePush",
-            deps: ["socket.io"]
-        }
-    },
-    paths: {
-        "socket.io": "//localhost:4567/socket.io/socket.io",
-        "FumePush": "../../../production/FumePushClient.min"
-    }
-});
 
-//main function
+var main = (function(){
 
-requirejs(["FumePush"], function(FumePush){
     var fumePush = new FumePush("//localhost", 4567);
 
     var yolo = fumePush.subscribe("yolo");
@@ -57,4 +40,4 @@ requirejs(["FumePush"], function(FumePush){
     setTimeout(function(){
         //swag.trigger("Mega:Swag", "swag msg");
     }, 1000);
-});
+})();

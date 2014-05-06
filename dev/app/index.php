@@ -5,8 +5,8 @@
     <meta content="NO-CACHE">
 </head>
 <body>
-<?php
-    echo "<script data-main='js/main' src='libs/require.js?v=". time() ."'></script>"
-?>
+<script src="//localhost:4567/socket.io/socket.io.js"></script>
+<script src="libs/FumePushClient.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

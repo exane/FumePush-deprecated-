@@ -1,6 +1,7 @@
+
 var FumePush = (function(){
 
-    //= include ./FumePush.Channel.js
+    //= require ./FumePush.Channel.js
 
     var FumePush = function(url, port){
         _connect.call(this, url, port);
