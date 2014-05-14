@@ -7,6 +7,16 @@ FumePush
 var FumePush = require("FumePushServer.min.js");
 
 var fumePush = new FumePush(4567); //port
+
+
+fumePush.bind("msg", function(data){
+    console.log("event called on server! room: " + data.room + " event: " + data.event + " data: "+data.data);
+});
+
+setInterval(function(){
+    fumePush.trigger("msg", "message from server!", "channel");
+}, 2000);
+
 ```
 
 ## Client
