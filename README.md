@@ -14,7 +14,7 @@ fumePush.bind("msg", function(data){
 });
 
 setInterval(function(){
-    fumePush.trigger("msg", "message from server!", "channel");
+    fumePush.trigger("msg", "message from server!", "channel"); //optional channel
 }, 2000);
 
 ```
