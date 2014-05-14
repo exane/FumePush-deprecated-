@@ -24,13 +24,19 @@ var main = (function(){
 
     });
 
-    //fumePush.trigger("Send:msg", "yoo bitches!");
+    //swag.trigger("blubb test", "yoooollooooo");
+
+    fumePush.trigger("Mega:Swag", "yoo bitches!");
 
     //fumePush.unsubscribe("yolo");
 
     fumePush.trigger("Send:msg", "swag power");
 
     //swag.broadcast("sendToAll:msg", "yolo swag united!");
+
+    yolo.bind("eventFromServer", function(data){
+        console.log(data);
+    })
 
 
     setInterval(function(){

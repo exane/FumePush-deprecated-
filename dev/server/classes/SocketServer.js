@@ -10,9 +10,11 @@ var Socket = (function () {
     r.io = null;
     r._rooms = [];
     r._events = [];
+    r._bindings = [];
 
     r.listen = function () {
         this.io = require("socket.io").listen(this.port, {log: false});
+        ////console.log(this.io);
         this.onConnection();
     };
 
@@ -20,7 +22,7 @@ var Socket = (function () {
     r.onConnection = function () {
         var that = this;
         this.io.on("connection", function (socket) {
-            console.log("new user connected");
+            //console.log("new user connected");
             that.onDisconnect(socket);
             that.onTriggerEvent(socket);
             that.onJoinEvent(socket);
@@ -30,7 +32,7 @@ var Socket = (function () {
 
     r.onDisconnect = function (socket) {
         socket.on("disconnect", function () {
-            console.log("user disconnected");
+            //console.log("user disconnected");
 
         })
     };
@@ -41,16 +43,16 @@ var Socket = (function () {
             if (data.isBroadcasting)
                 that.broadcast(socket, data);
             else if (data.toAll)
-                that.trigger(socket, data, true);
+                that._trigger(socket, data, true);
             else
-                that.trigger(socket, data);
+                that._trigger(socket, data);
         })
     };
 
     r.onJoinEvent = function (socket) {
         var that = this;
         socket.on("Join:Room", function (channel) {
-            console.log("joined room");
+            //console.log("joined room");
             socket.join(channel);
             for (var i = 0; i < that._rooms.length; i++)
                 if (that._rooms[i] == channel) return 0;
@@ -60,7 +62,7 @@ var Socket = (function () {
     r.onLeaveEvent = function (socket) {
         var that = this;
         socket.on("Leave:Room", function (channel) {
-            console.log("leaved room", channel);
+            //console.log("leaved room", channel);
             socket.leave(channel);
             for (var i = 0; i < that._rooms.length; i++) {
                 if (that._rooms[i] != channel) continue;
@@ -83,9 +85,10 @@ var Socket = (function () {
             if (this._events[i] == event) return true;
         return false;
     };
-    r.trigger = function (socket, data, toAll) {
+    r._trigger = function (socket, data, toAll) {
         toAll = toAll || false;
-        //console.log("sending to " + data.room + " with event " + data.event);
+        ////console.log("sending to " + data.room + " with event " + data.event);
+        this.callBindings(socket, data);
         if (toAll)
             this.io.sockets.emit(data.event, data);
         else
@@ -94,9 +97,30 @@ var Socket = (function () {
     r.broadcast = function (socket, data) {
         socket.broadcast.emit(data.event, data);
     };
+    r.bind = function(event, cb){
+        this._bindings.push({event: event, cb: cb});
+    };
+    r.callBindings = function(socket, data){
+        for(var i=0; i<this._bindings.length; i++){
+            if(this._bindings[i].event !== data.event) continue;
+            this._bindings[i].cb.call(this, data);
+        }
+    };
+    r.trigger = function(event, data, room){
+        room = room || "FumePush:PUBLIC";
+        data = {
+            event: event,
+            data: data,
+            room: room
+        };
+
+        if(room !== "FumePush:PUBLIC")
+            this.io.sockets.to(room).emit(event, data);
+        else
+            this.io.sockets.emit(event, data);
+    }
 
 
-    //r.listen();
     return Socket;
 })();
 

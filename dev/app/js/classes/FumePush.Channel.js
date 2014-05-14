@@ -42,3 +42,5 @@ var Channel = (function(){
 
     return Channel;
 })();
+
+module.exports = Channel;

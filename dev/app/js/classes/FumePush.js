@@ -1,7 +1,6 @@
-
 var FumePush = (function(){
 
-    //= require ./FumePush.Channel.js
+    var Channel = require("./FumePush.Channel");
 
     var FumePush = function(url, port){
         _connect.call(this, url, port);
@@ -62,3 +61,5 @@ var FumePush = (function(){
 
     return FumePush;
 })();
+
+module.exports = FumePush;
