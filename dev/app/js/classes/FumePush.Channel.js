@@ -11,7 +11,7 @@ var Channel = (function(){
      */
     var Channel = function(socket, ChannelName){
         this._channelName = ChannelName;
-        this.socket = socket;
+        this._socket = socket;
         this._joinRoom(this._channelName);
     };
     var r = Channel.prototype;
