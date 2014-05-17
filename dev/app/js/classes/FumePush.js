@@ -103,7 +103,7 @@ var FumePush = (function(){
      * @param {string} channelName
      * @method subscribe
      * @public
-     * @returns {Channel}
+     * @return {Channel} new Channel Instance
      */
     r.subscribe = function(channelName){
         var channel = new Channel(this._socket, channelName);
@@ -116,7 +116,7 @@ var FumePush = (function(){
      * Leaves the channel.
      * @param {string} channelName
      * @method unsubscribe
-     * @pubic
+     * @public
      */
     r.unsubscribe = function(channelName){
         this._rooms.splice(channelName);

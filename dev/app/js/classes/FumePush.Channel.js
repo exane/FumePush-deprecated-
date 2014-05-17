@@ -1,5 +1,5 @@
 /**
- * @module Channel
+ * @module FumePush.Channel
  */
 var Channel = (function(){
 
