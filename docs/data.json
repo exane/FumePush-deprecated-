@@ -1,0 +1,380 @@
+{
+    "project": {},
+    "files": {
+        "dev\\app\\js\\classes\\FumePush.Channel.js": {
+            "name": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "modules": {
+                "FumePush.Channel": 1
+            },
+            "classes": {
+                "Channel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "dev\\app\\js\\classes\\FumePush.js": {
+            "name": "dev\\app\\js\\classes\\FumePush.js",
+            "modules": {
+                "FumePush": 1
+            },
+            "classes": {
+                "FumePush": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "docs\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js": {
+            "name": "docs\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "FumePush.Channel": {
+            "name": "FumePush.Channel",
+            "submodules": {},
+            "classes": {
+                "Channel": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 6
+        },
+        "FumePush": {
+            "name": "FumePush",
+            "submodules": {},
+            "classes": {
+                "FumePush": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 8
+        }
+    },
+    "classes": {
+        "Channel": {
+            "name": "Channel",
+            "shortname": "Channel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "FumePush.Channel",
+            "namespace": "",
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 6,
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "ChannelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "is_constructor": 1
+        },
+        "FumePush": {
+            "name": "FumePush",
+            "shortname": "FumePush",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "FumePush",
+            "namespace": "",
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 8,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "port",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 20,
+            "description": "Name of instance.",
+            "itemtype": "property",
+            "name": "Channelname",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "Channel",
+            "module": "FumePush.Channel"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 28,
+            "description": "Socket.io instance reference.",
+            "itemtype": "property",
+            "name": "socket",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Channel",
+            "module": "FumePush.Channel"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 36,
+            "description": "Sends an event \"Join:Room\" with roomName to server which joins this instance to a room.",
+            "params": [
+                {
+                    "name": "roomName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "joinRoom",
+            "access": "private",
+            "tagname": "",
+            "class": "Channel",
+            "module": "FumePush.Channel"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 47,
+            "description": "Send an event to server with data. Server will redirect to everybody (includes sender)\nwithin same channel and listening to same event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "itemtype": "method",
+            "name": "trigger",
+            "class": "Channel",
+            "module": "FumePush.Channel"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 67,
+            "description": "Starts listening to an event of same channel.",
+            "itemtype": "method",
+            "name": "bind",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Channel",
+            "module": "FumePush.Channel"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 84,
+            "description": "Send an event to server with data. Server will redirect to everybody, except sender, within same channel and listening to same event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "broadcast",
+            "class": "Channel",
+            "module": "FumePush.Channel"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 23,
+            "description": "socket.io instance object.",
+            "itemtype": "property",
+            "name": "socket",
+            "type": "{object}",
+            "access": "private",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 33,
+            "description": "List of all joined channels.",
+            "itemtype": "property",
+            "name": "rooms",
+            "access": "private",
+            "tagname": "",
+            "type": "{Array}",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 45,
+            "description": "Creates new instance of socket.io and saves into socket property.",
+            "params": [
+                {
+                    "name": "url",
+                    "description": ""
+                },
+                {
+                    "name": "port",
+                    "description": ""
+                }
+            ],
+            "itemtype": "method",
+            "name": "connect",
+            "access": "private",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 60,
+            "description": "Send an event to all channels.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "itemtype": "method",
+            "name": "trigger",
+            "access": "public",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 82,
+            "description": "Creates a listener event which will fire the callback whenever any channel calls.",
+            "itemtype": "method",
+            "name": "bind",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 101,
+            "description": "Create and returns a new instance of Channel.",
+            "params": [
+                {
+                    "name": "channelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "subscribe",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "new Channel Instance",
+                "type": "Channel"
+            },
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 115,
+            "description": "Leaves the channel.",
+            "params": [
+                {
+                    "name": "channelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "unsubscribe",
+            "access": "public",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 133,
+            "description": "Not implemented yet.",
+            "itemtype": "method",
+            "name": "disconnect",
+            "access": "public",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "FumePush"
+        },
+        {
+            "file": "docs\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
+            "line": 1,
+            "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "class": "",
+            "module": "FumePush"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "line": " docs\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js:1"
+        }
+    ]
+}
