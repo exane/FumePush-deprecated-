@@ -4,7 +4,7 @@
         "dev\\app\\js\\classes\\FumePush.Channel.js": {
             "name": "dev\\app\\js\\classes\\FumePush.Channel.js",
             "modules": {
-                "FumePush.Channel": 1
+                "Client": 1
             },
             "classes": {
                 "Channel": 1
@@ -14,11 +14,20 @@
         },
         "dev\\app\\js\\classes\\FumePush.js": {
             "name": "dev\\app\\js\\classes\\FumePush.js",
-            "modules": {
-                "FumePush": 1
-            },
+            "modules": {},
             "classes": {
                 "FumePush": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "dev\\server\\classes\\SocketServer.js": {
+            "name": "dev\\server\\classes\\SocketServer.js",
+            "modules": {
+                "Server": 1
+            },
+            "classes": {
+                "Socket": 1
             },
             "fors": {},
             "namespaces": {}
@@ -32,22 +41,11 @@
         }
     },
     "modules": {
-        "FumePush.Channel": {
-            "name": "FumePush.Channel",
+        "Client": {
+            "name": "Client",
             "submodules": {},
             "classes": {
-                "Channel": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 6
-        },
-        "FumePush": {
-            "name": "FumePush",
-            "submodules": {},
-            "classes": {
+                "Channel": 1,
                 "FumePush": 1
             },
             "fors": {},
@@ -55,6 +53,18 @@
             "tag": "module",
             "file": "dev\\app\\js\\classes\\FumePush.js",
             "line": 8
+        },
+        "Server": {
+            "name": "Server",
+            "submodules": {},
+            "classes": {
+                "Socket": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 7
         }
     },
     "classes": {
@@ -66,10 +76,11 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "FumePush.Channel",
+            "module": "Client",
             "namespace": "",
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
             "line": 6,
+            "description": "Constructor",
             "params": [
                 {
                     "name": "socket",
@@ -92,10 +103,11 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "FumePush",
+            "module": "Client",
             "namespace": "",
             "file": "dev\\app\\js\\classes\\FumePush.js",
             "line": 8,
+            "description": "Constructor",
             "params": [
                 {
                     "name": "url",
@@ -109,36 +121,58 @@
                 }
             ],
             "is_constructor": 1
+        },
+        "Socket": {
+            "name": "Socket",
+            "shortname": "Socket",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Server",
+            "namespace": "",
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 7,
+            "description": "Constructor",
+            "params": [
+                {
+                    "name": "port",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "is_constructor": 1
         }
     },
     "classitems": [
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 20,
+            "line": 21,
             "description": "Name of instance.",
             "itemtype": "property",
-            "name": "Channelname",
+            "name": "_channelName",
             "type": "String",
             "access": "private",
             "tagname": "",
             "class": "Channel",
-            "module": "FumePush.Channel"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 28,
+            "line": 29,
             "description": "Socket.io instance reference.",
             "itemtype": "property",
-            "name": "socket",
+            "name": "_socket",
             "type": "Object",
             "access": "private",
             "tagname": "",
             "class": "Channel",
-            "module": "FumePush.Channel"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 36,
+            "line": 37,
             "description": "Sends an event \"Join:Room\" with roomName to server which joins this instance to a room.",
             "params": [
                 {
@@ -148,15 +182,15 @@
                 }
             ],
             "itemtype": "method",
-            "name": "joinRoom",
+            "name": "_joinRoom",
             "access": "private",
             "tagname": "",
             "class": "Channel",
-            "module": "FumePush.Channel"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 47,
+            "line": 48,
             "description": "Send an event to server with data. Server will redirect to everybody (includes sender)\nwithin same channel and listening to same event.",
             "params": [
                 {
@@ -173,11 +207,11 @@
             "itemtype": "method",
             "name": "trigger",
             "class": "Channel",
-            "module": "FumePush.Channel"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 67,
+            "line": 68,
             "description": "Starts listening to an event of same channel.",
             "itemtype": "method",
             "name": "bind",
@@ -196,11 +230,11 @@
             "access": "public",
             "tagname": "",
             "class": "Channel",
-            "module": "FumePush.Channel"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 84,
+            "line": 85,
             "description": "Send an event to server with data. Server will redirect to everybody, except sender, within same channel and listening to same event.",
             "params": [
                 {
@@ -219,31 +253,31 @@
             "itemtype": "method",
             "name": "broadcast",
             "class": "Channel",
-            "module": "FumePush.Channel"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
             "line": 23,
             "description": "socket.io instance object.",
             "itemtype": "property",
-            "name": "socket",
+            "name": "_socket",
             "type": "{object}",
             "access": "private",
             "tagname": "",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
             "line": 33,
             "description": "List of all joined channels.",
             "itemtype": "property",
-            "name": "rooms",
+            "name": "_rooms",
             "access": "private",
             "tagname": "",
             "type": "{Array}",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
@@ -260,11 +294,11 @@
                 }
             ],
             "itemtype": "method",
-            "name": "connect",
+            "name": "_connect",
             "access": "private",
             "tagname": "",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
@@ -287,12 +321,12 @@
             "access": "public",
             "tagname": "",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
             "line": 82,
-            "description": "Creates a listener event which will fire the callback whenever any channel calls.",
+            "description": "Creates a listener event which fires the callback whenever any channel calls.",
             "itemtype": "method",
             "name": "bind",
             "params": [
@@ -310,7 +344,7 @@
             "access": "public",
             "tagname": "",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
@@ -332,7 +366,7 @@
                 "type": "Channel"
             },
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
@@ -350,7 +384,7 @@
             "access": "public",
             "tagname": "",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
@@ -361,17 +395,344 @@
             "access": "public",
             "tagname": "",
             "class": "FumePush",
-            "module": "FumePush"
+            "module": "Client"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 20,
+            "itemtype": "property",
+            "name": "port",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 27,
+            "itemtype": "property",
+            "name": "io",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 34,
+            "itemtype": "property",
+            "name": "rooms",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 42,
+            "type": "{Array} events",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 50,
+            "type": "{Array} bindings",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 59,
+            "itemtype": "method",
+            "name": "_listen",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 73,
+            "itemtype": "method",
+            "name": "_onConnection",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 92,
+            "itemtype": "method",
+            "name": "_onDisconnect",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 107,
+            "itemtype": "method",
+            "name": "_onTriggerEvent",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 126,
+            "itemtype": "method",
+            "name": "_onJoinEvent",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 143,
+            "itemtype": "method",
+            "name": "_onLeaveEvent",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 161,
+            "itemtype": "method",
+            "name": "_addEvent",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 171,
+            "itemtype": "method",
+            "name": "_removeEvent",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 185,
+            "itemtype": "method",
+            "name": "_hasEvent",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 198,
+            "itemtype": "method",
+            "name": "_trigger",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "toAll",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 216,
+            "itemtype": "method",
+            "name": "broadcast",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 227,
+            "itemtype": "method",
+            "name": "bind",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 238,
+            "itemtype": "method",
+            "name": "_callBindings",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Socket",
+            "module": "Server"
+        },
+        {
+            "file": "dev\\server\\classes\\SocketServer.js",
+            "line": 252,
+            "itemtype": "method",
+            "name": "trigger",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "room",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "class": "Socket",
+            "module": "Server"
         },
         {
             "file": "docs\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "line": 1,
             "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
             "class": "",
-            "module": "FumePush"
+            "module": "Server"
         }
     ],
     "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dev\\server\\classes\\SocketServer.js:185"
+        },
+        {
+            "message": "Missing item type",
+            "line": " dev\\server\\classes\\SocketServer.js:42"
+        },
+        {
+            "message": "Missing item type",
+            "line": " dev\\server\\classes\\SocketServer.js:50"
+        },
         {
             "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
             "line": " docs\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js:1"

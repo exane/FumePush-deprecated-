@@ -2,20 +2,21 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "Channel",
-        "FumePush"
+        "FumePush",
+        "Socket"
     ],
     "modules": [
-        "FumePush",
-        "FumePush.Channel"
+        "Client",
+        "Server"
     ],
     "allModules": [
         {
-            "displayName": "FumePush",
-            "name": "FumePush"
+            "displayName": "Client",
+            "name": "Client"
         },
         {
-            "displayName": "FumePush.Channel",
-            "name": "FumePush.Channel"
+            "displayName": "Server",
+            "name": "Server"
         }
     ]
 } };

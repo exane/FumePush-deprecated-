@@ -1,12 +1,12 @@
 /**
- * @module FumePush
+ * @module Client
  */
 var FumePush = (function(){
 
     var Channel = require("./FumePush.Channel");
 
     /**
-     *
+     * Constructor
      * @param {string} url
      * @param {number} port
      * @class FumePush
@@ -22,7 +22,7 @@ var FumePush = (function(){
 
     /**
      * socket.io instance object.
-     * @property socket
+     * @property _socket
      * @type {object}
      * @private
      */
@@ -32,7 +32,7 @@ var FumePush = (function(){
 
     /**
      * List of all joined channels.
-     * @property rooms
+     * @property _rooms
      * @private
      * @type {Array}
      */
@@ -46,7 +46,7 @@ var FumePush = (function(){
      * Creates new instance of socket.io and saves into socket property.
      * @param url
      * @param port
-     * @method connect
+     * @method _connect
      * @private
      */
     r._connect = function(url, port){
@@ -80,7 +80,7 @@ var FumePush = (function(){
 
 
     /**
-     * Creates a listener event which will fire the callback whenever any channel calls.
+     * Creates a listener event which fires the callback whenever any channel calls.
      * @method bind
      * @param {string} event
      * @param {function} callback

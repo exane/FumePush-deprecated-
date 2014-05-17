@@ -1,9 +1,10 @@
 /**
- * @module FumePush.Channel
+ * @module Client
  */
 var Channel = (function(){
 
     /**
+     * Constructor
      * @class Channel
      * @param {object} socket
      * @param {string} ChannelName
@@ -19,7 +20,7 @@ var Channel = (function(){
 
     /**
      * Name of instance.
-     * @property {string} Channelname
+     * @property {string} _channelName
      * @private
      */
     r._channelName = null;
@@ -27,7 +28,7 @@ var Channel = (function(){
 
     /**
      * Socket.io instance reference.
-     * @property {object} socket
+     * @property {object} _socket
      * @private
      */
     r._socket = null;
@@ -36,7 +37,7 @@ var Channel = (function(){
     /**
      * Sends an event "Join:Room" with roomName to server which joins this instance to a room.
      * @param {string} roomName
-     * @method joinRoom
+     * @method _joinRoom
      * @private
      */
     r._joinRoom = function(roomName){
