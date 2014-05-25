@@ -173,6 +173,16 @@
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
             "line": 37,
+            "description": "Array of event names for unbind method.",
+            "type": "{Array} _blacklist",
+            "access": "private",
+            "tagname": "",
+            "class": "Channel",
+            "module": "Client"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 45,
             "description": "Sends an event \"Join:Room\" with roomName to server which joins this instance to a room.",
             "params": [
                 {
@@ -190,7 +200,7 @@
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 48,
+            "line": 58,
             "description": "Send an event to server with data. Server will redirect to everybody (includes sender)\nwithin same channel and listening to same event.",
             "params": [
                 {
@@ -211,7 +221,7 @@
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 68,
+            "line": 78,
             "description": "Starts listening to an event of same channel.",
             "itemtype": "method",
             "name": "bind",
@@ -234,7 +244,46 @@
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
-            "line": 85,
+            "line": 95,
+            "description": "Removes event listener for this channel.",
+            "itemtype": "method",
+            "name": "unbind",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Channel",
+            "module": "Client"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 110,
+            "description": "Checks if the given param is within _blacklist array and returns true or false.",
+            "itemtype": "method",
+            "name": "_isBlacklisted",
+            "params": [
+                {
+                    "name": "event",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Channel",
+            "module": "Client"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.Channel.js",
+            "line": 124,
             "description": "Send an event to server with data. Server will redirect to everybody, except sender, within same channel and listening to same event.",
             "params": [
                 {
@@ -348,7 +397,48 @@
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
-            "line": 101,
+            "line": 99,
+            "description": "Removes event listeners in all channels of this socket",
+            "itemtype": "method",
+            "name": "unbind",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "Client"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 110,
+            "description": "Creates EventListener which fires callback once",
+            "itemtype": "method",
+            "name": "bindOnce",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "FumePush",
+            "module": "Client"
+        },
+        {
+            "file": "dev\\app\\js\\classes\\FumePush.js",
+            "line": 127,
             "description": "Create and returns a new instance of Channel.",
             "params": [
                 {
@@ -370,7 +460,7 @@
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
-            "line": 115,
+            "line": 141,
             "description": "Leaves the channel.",
             "params": [
                 {
@@ -388,7 +478,7 @@
         },
         {
             "file": "dev\\app\\js\\classes\\FumePush.js",
-            "line": 133,
+            "line": 159,
             "description": "Not implemented yet.",
             "itemtype": "method",
             "name": "disconnect",
@@ -460,7 +550,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 73,
+            "line": 72,
             "itemtype": "method",
             "name": "_onConnection",
             "access": "private",
@@ -470,7 +560,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 92,
+            "line": 91,
             "itemtype": "method",
             "name": "_onDisconnect",
             "access": "private",
@@ -487,7 +577,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 107,
+            "line": 114,
             "itemtype": "method",
             "name": "_onTriggerEvent",
             "access": "private",
@@ -504,7 +594,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 126,
+            "line": 133,
             "itemtype": "method",
             "name": "_onJoinEvent",
             "access": "private",
@@ -521,7 +611,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 143,
+            "line": 150,
             "itemtype": "method",
             "name": "_onLeaveEvent",
             "access": "private",
@@ -538,7 +628,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 161,
+            "line": 168,
             "itemtype": "method",
             "name": "_addEvent",
             "access": "private",
@@ -555,7 +645,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 171,
+            "line": 178,
             "itemtype": "method",
             "name": "_removeEvent",
             "params": [
@@ -572,7 +662,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 185,
+            "line": 192,
             "itemtype": "method",
             "name": "_hasEvent",
             "params": [
@@ -593,7 +683,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 198,
+            "line": 205,
             "itemtype": "method",
             "name": "_trigger",
             "params": [
@@ -622,7 +712,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 216,
+            "line": 223,
             "itemtype": "method",
             "name": "broadcast",
             "params": [
@@ -644,7 +734,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 227,
+            "line": 234,
             "itemtype": "method",
             "name": "bind",
             "params": [
@@ -666,7 +756,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 238,
+            "line": 245,
             "itemtype": "method",
             "name": "_callBindings",
             "params": [
@@ -688,7 +778,7 @@
         },
         {
             "file": "dev\\server\\classes\\SocketServer.js",
-            "line": 252,
+            "line": 259,
             "itemtype": "method",
             "name": "trigger",
             "params": [
@@ -723,7 +813,15 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " dev\\server\\classes\\SocketServer.js:185"
+            "line": " dev\\app\\js\\classes\\FumePush.Channel.js:110"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dev\\server\\classes\\SocketServer.js:192"
+        },
+        {
+            "message": "Missing item type\nArray of event names for unbind method.",
+            "line": " dev\\app\\js\\classes\\FumePush.Channel.js:37"
         },
         {
             "message": "Missing item type",

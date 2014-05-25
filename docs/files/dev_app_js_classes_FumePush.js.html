@@ -207,6 +207,32 @@ var FumePush = (function(){
     };
 
 
+    /**
+     * Removes event listeners in all channels of this socket
+     * @method unbind
+     * @param {string} event
+     * @public
+     */
+    r.unbind = function(event){
+        this._socket.removeAllListeners(event);
+    }
+
+
+    /**
+     * Creates EventListener which fires callback once
+     * @method bindOnce
+     * @param {string} event
+     * @param {function} callback
+     * @public
+     */
+    r.bindOnce = function(event, callback){
+        var that = this;
+        this._socket.once(event, function(data){
+            callback.call(that, data.data)
+        })
+    }
+
+
 
 
     /**

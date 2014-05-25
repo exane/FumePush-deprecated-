@@ -63,7 +63,6 @@ var Socket = (function(){
      */
     r._listen = function(){
         this.io = require("socket.io").listen(this.port, {log: false});
-        ////console.log(this.io);
         this._onConnection();
     };
 
@@ -77,11 +76,11 @@ var Socket = (function(){
     r._onConnection = function(){
         var that = this;
         this.io.on("connection", function(socket){
-            //console.log("new user connected");
             that._onDisconnect(socket);
             that._onTriggerEvent(socket);
             that._onJoinEvent(socket);
             that._onLeaveEvent(socket);
+            that._onUnbindEvent(socket);
         })
     };
 
@@ -100,6 +99,14 @@ var Socket = (function(){
 
         })
     };
+
+    r._onUnbindEvent = function(socket){
+        var that = this;
+        socket.on("FumePush:unbind", function(event){
+            that.io.removeListener(event, function(){});
+            socket.removeListener(event, function(){});
+        });
+    }
 
 
 

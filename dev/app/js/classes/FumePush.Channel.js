@@ -35,6 +35,14 @@ var Channel = (function(){
 
 
     /**
+     * Array of event names for unbind method.
+     * @type {Array} _blacklist
+     * @private
+     */
+    r._blacklist = [];
+
+
+    /**
      * Sends an event "Join:Room" with roomName to server which joins this instance to a room.
      * @param {string} roomName
      * @method _joinRoom
@@ -43,6 +51,8 @@ var Channel = (function(){
     r._joinRoom = function(roomName){
         this._socket.emit("Join:Room", roomName)
     };
+
+
 
 
     /**
@@ -75,11 +85,40 @@ var Channel = (function(){
     r.bind = function(event, callback){
         var that = this;
         this._socket.on(event, function(data){
+            if(that._isBlacklisted(event)) return 0;
             if(data.room != "FumePush:PUBLIC" && that._channelName != data.room) return 0;
-            //console.log(that._channelName + ".on('%s', '%s')", event, data.data);
             callback.call(that, data.data)
         })
     };
+
+
+    /**
+     * Removes event listener for this channel.
+     * @method unbind
+     * @param {string} event
+     * @public
+     */
+    r.unbind = function(event){
+        var that = this;
+        this._blacklist.push({
+            event: event,
+            channel: that._channelName
+        });
+    }
+
+
+    /**
+     * Checks if the given param is within _blacklist array and returns true or false.
+     * @method _isBlacklisted
+     * @param event
+     * @returns {boolean}
+     * @private
+     */
+    r._isBlacklisted = function(event){
+        for(var i=0; i<this._blacklist.length; i++)
+            if(this._blacklist[i].event === event && this._blacklist[i].channel === this._channelName) return true;
+        return false;
+    }
 
 
     /**
