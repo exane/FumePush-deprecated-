@@ -14,14 +14,14 @@ gulp.task("scripts", function(){
         .bundle({standalone: "FumePush"})
         .pipe(source("FumePushClient.min.js"))
         .pipe(streamify(uglify()))
-        .pipe(gulp.dest("production"))
+        .pipe(gulp.dest("bin"))
         .pipe(gulp.dest("dev/app/libs"));
 
 
     gulp.src("dev/server/classes/SocketServer.js")
         .pipe(uglify())
         .pipe(concat("FumePushServer.min.js"))
-        .pipe(gulp.dest("production"));
+        .pipe(gulp.dest("bin"));
 });
 
 gulp.task("docs", function(){

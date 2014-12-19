@@ -1,5 +1,5 @@
 
-global.FumePush = require("../../production/FumePushServer.min.js");
+global.FumePush = require("../../bin/FumePushServer.min.js");
 
 var fumePush = new FumePush(4567);
 
