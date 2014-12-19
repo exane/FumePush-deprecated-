@@ -32,6 +32,11 @@ cd path/to/server
 node server.js
 ```
 
+### Debug-Console
+if you want to use the debug-console then copy the folder
+debug-console into your project and change the url and port to 
+match your client-server config. (i.e.: same url and port as for socket.io)
+
 ## dev
 ```javascript
 cmd cd root
