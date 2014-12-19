@@ -7,12 +7,14 @@ var Channel = (function(){
      * @class Channel
      * @param {object} socket
      * @param {string} ChannelName
+     * @param {FumePush} fumePush
      * @constructor
      */
-    var Channel = function(socket, ChannelName){
+    var Channel = function(socket, ChannelName, fumePush){
         this._channelName = ChannelName;
         this._socket = socket;
         this._joinRoom(this._channelName);
+        this._fumePush = fumePush;
     };
     var r = Channel.prototype;
 
@@ -23,6 +25,14 @@ var Channel = (function(){
      * @private
      */
     r._channelName = null;
+
+
+    /**
+     * Access to fumePush methods
+     * @type {FumePush}
+     * @private
+     */
+    r._fumePush = null;
 
 
     /**
@@ -53,6 +63,11 @@ var Channel = (function(){
      */
     r.trigger = function(event, data, isBroadcasting){
         var that = this;
+
+        if(this._fumePush.isJson(data)){
+            data = JSON.parse(data);
+        }
+
         isBroadcasting = isBroadcasting || false;
         this._socket.emit("Trigger:Event", {
             room: that._channelName,
@@ -75,11 +90,21 @@ var Channel = (function(){
         var that = this;
         this._socket.on(event, function(data){
             if(data.room != "FumePush:PUBLIC" && that._channelName != data.room) return 0;
+
             //console.log(that._channelName + ".on('%s', '%s')", event, data.data);
             callback.call(that, data.data)
         })
     };
 
+    /**
+     * Returns channelName
+     * @method getChannelName
+     * @returns {string} channelname
+     * @public
+     */
+    r.getChannelName = function(){
+        return this._channelName;
+    };
 
     /**
      * Send an event to server with data. Server will redirect to everybody, except sender, within same channel and listening to same event.

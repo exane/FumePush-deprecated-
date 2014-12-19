@@ -7,11 +7,11 @@ var main = (function(){
     var swag = fumePush.subscribe("swag");
 
     yolo.bind("Send:msg", function(data){
-        console.log("yolo - subscribed to: " + this.channelName + " with msg: " + data);
+        console.log("yolo - subscribed to: " + this.getChannelName() + " with msg: ", data);
     });
 
     swag.bind("Mega:Swag", function(data){
-        console.log("swag - subscribed to: " + this.channelName + " with msg: " + data);
+        console.log("swag - subscribed to: " + this.getChannelName() + " with msg: ", data);
 
     });
 
@@ -21,7 +21,6 @@ var main = (function(){
 
     fumePush.bind("Send:msg", function(data){
         console.log(data, "yooo");
-
     });
 
     //swag.trigger("blubb test", "yoooollooooo");
@@ -29,8 +28,20 @@ var main = (function(){
     fumePush.trigger("Mega:Swag", "yoo bitches!");
 
     //fumePush.unsubscribe("yolo");
+    var json = '{"user": "pyxl","message": "yeah yeah","time": "11:12"}';
 
     fumePush.trigger("Send:msg", "swag power");
+    fumePush.trigger("Send:msg", {
+        user: "exane",
+        message: "yoyo",
+        time: "12:12"
+    });
+    fumePush.trigger("Send:msg", {
+        user: "exane",
+        message: "yoyo",
+        time: "12:12"
+    });
+    fumePush.trigger("Send:msg", json);
 
     //swag.broadcast("sendToAll:msg", "yolo swag united!");
 

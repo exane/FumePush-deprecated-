@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .btn {
+            border: 1px solid graytext;
+            border-radius: 7px;
+            width: 100px;
+            text-align: center;
+            cursor: default;
+        }
+        .btn:hover {
+            background: #ececec;
+        }
+    </style>
+    <script type="text/javascript" src="http://localhost:4567/socket.io/socket.io.js"></script>
+    <script src="bin/FumePushClient.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <label for="channel">Channel</label>
+    <input id="channel">
+</div>
+<div class="row">
+    <label for="event">Event</label>
+    <input id="event">
+</div>
+<div class="row">
+    <label for="data">Data</label>
+    <input id="data">
+</div>
+<div class="btn">Send</div><script type="text/javascript">
+
+    var socket = new FumePush("//localhost", 4567);
+
+    var btn = document.querySelector(".btn");
+    btn.addEventListener("click", function(){
+        var channel, event, data;
+
+
+        channel = document.querySelector("#channel").value;
+        event = document.querySelector("#event").value;
+        data = document.querySelector("#data").value;
+
+        if(channel){
+            var channelObj = socket.subscribe(channel);
+            channelObj.trigger(event, data);
+
+            socket.unsubscribe(channel);
+            return;
+        }
+        socket.trigger(event, data);
+    });
+
+
+</script>
+</body>
+</html>

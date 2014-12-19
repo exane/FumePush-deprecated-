@@ -8,6 +8,6 @@ fumePush.bind("blubb test", function(data){
 });
 
 setInterval(function(){
-    fumePush.trigger("eventFromServer", "yoloEventServer", "yolo");
+    //fumePush.trigger("eventFromServer", "yoloEventServer", "yolo");
 },2000);
 

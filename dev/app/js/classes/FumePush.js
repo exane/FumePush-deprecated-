@@ -13,6 +13,8 @@ var FumePush = (function(){
      * @constructor
      */
     var FumePush = function(url, port){
+        if(!url) throw new Error("Missing url");
+        if(!port) throw new Error("Missing port");
         this._connect.call(this, url, port);
 
     };
@@ -65,16 +67,30 @@ var FumePush = (function(){
      * @public
      */
     r.trigger = function(event, data){
-        var isBroadcasting = isBroadcasting || false;
         //console.log("FumePush" + ".trigger('%s', '%s')", event, data);
+        if(typeof data === "function") throw new Error("no functions allowed");
+
+        if(this.isJson(data)){
+            data = JSON.parse(data);
+        }
+
         this._socket.emit("Trigger:Event", {
             room: "FumePush:PUBLIC",
             event: event,
             data: data,
-            isBroadcasting: isBroadcasting,
+            isBroadcasting: false,
             toAll: true
         });
     };
+
+    r.isJson = function(str){
+        try {
+            JSON.parse(str);
+        } catch(e) {
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -91,6 +107,7 @@ var FumePush = (function(){
         this._socket.on(event, function(data){
             //if(data.room != "FumePush:PUBLIC" && that.channelName != data.room) return 0;
             //console.log("FumePush" + ".on('%s', '%s')", event, data.data);
+
             callback.call(that, data.data)
         })
     };
@@ -106,7 +123,7 @@ var FumePush = (function(){
      * @returns {Channel}
      */
     r.subscribe = function(channelName){
-        var channel = new Channel(this._socket, channelName);
+        var channel = new Channel(this._socket, channelName, this);
         this._rooms.push(channelName);
         return channel;
     };
