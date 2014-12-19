@@ -1,12 +1,12 @@
 /**
- * @module FumePush
+ * @module Client
  */
 var FumePush = (function(){
 
     var Channel = require("./FumePush.Channel");
 
     /**
-     *
+     * Constructor
      * @param {string} url
      * @param {number} port
      * @class FumePush
@@ -24,7 +24,7 @@ var FumePush = (function(){
 
     /**
      * socket.io instance object.
-     * @property socket
+     * @property _socket
      * @type {object}
      * @private
      */
@@ -34,7 +34,7 @@ var FumePush = (function(){
 
     /**
      * List of all joined channels.
-     * @property rooms
+     * @property _rooms
      * @private
      * @type {Array}
      */
@@ -48,7 +48,7 @@ var FumePush = (function(){
      * Creates new instance of socket.io and saves into socket property.
      * @param url
      * @param port
-     * @method connect
+     * @method _connect
      * @private
      */
     r._connect = function(url, port){
@@ -96,7 +96,7 @@ var FumePush = (function(){
 
 
     /**
-     * Creates a listener event which will fire the callback whenever any channel calls.
+     * Creates a listener event which fires the callback whenever any channel calls.
      * @method bind
      * @param {string} event
      * @param {function} callback
@@ -113,6 +113,32 @@ var FumePush = (function(){
     };
 
 
+    /**
+     * Removes event listeners in all channels of this socket
+     * @method unbind
+     * @param {string} event
+     * @public
+     */
+    r.unbind = function(event){
+        this._socket.removeAllListeners(event);
+    }
+
+
+    /**
+     * Creates EventListener which fires callback once
+     * @method bindOnce
+     * @param {string} event
+     * @param {function} callback
+     * @public
+     */
+    r.bindOnce = function(event, callback){
+        var that = this;
+        this._socket.once(event, function(data){
+            callback.call(that, data.data)
+        })
+    }
+
+
 
 
     /**
@@ -120,7 +146,7 @@ var FumePush = (function(){
      * @param {string} channelName
      * @method subscribe
      * @public
-     * @returns {Channel}
+     * @return {Channel} new Channel Instance
      */
     r.subscribe = function(channelName){
         var channel = new Channel(this._socket, channelName, this);
@@ -133,7 +159,7 @@ var FumePush = (function(){
      * Leaves the channel.
      * @param {string} channelName
      * @method unsubscribe
-     * @pubic
+     * @public
      */
     r.unsubscribe = function(channelName){
         this._rooms.splice(channelName);

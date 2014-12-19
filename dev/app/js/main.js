@@ -5,6 +5,7 @@ var main = (function(){
 
     var yolo = fumePush.subscribe("yolo");
     var swag = fumePush.subscribe("swag");
+    var testUnbind = fumePush.subscribe("test1");
 
     yolo.bind("Send:msg", function(data){
         console.log("yolo - subscribed to: " + this.getChannelName() + " with msg: ", data);
@@ -23,7 +24,7 @@ var main = (function(){
         console.log(data, "yooo");
     });
 
-    //swag.trigger("blubb test", "yoooollooooo");
+    swag.trigger("blubb test", "yoooollooooo");
 
     fumePush.trigger("Mega:Swag", "yoo bitches!");
 
@@ -43,11 +44,50 @@ var main = (function(){
     });
     fumePush.trigger("Send:msg", json);
 
-    //swag.broadcast("sendToAll:msg", "yolo swag united!");
+    swag.broadcast("sendToAll:msg", "yolo swag united!");
 
     yolo.bind("eventFromServer", function(data){
         console.log(data);
     })
+
+
+
+    testUnbind.bind("eventToUnbind", function(){
+        console.log("channel event unbinding!");
+    })
+
+    swag.bind("eventToUnbind", function(){
+        console.log("no unbinding!");
+    })
+
+    //fumePush.unbind("eventToUnbind");
+    testUnbind.unbind("eventToUnbind");
+    //swag.unbind("eventToUnbind");
+
+    testUnbind.trigger("eventToUnbind", "yolo");
+    swag.trigger("eventToUnbind", "yolo");
+
+
+
+
+    fumePush.bind("yoyoEvent", function(){
+        console.log("unbind me!!!");
+    })
+
+    fumePush.unbind("yoyoEvent");
+
+
+    fumePush.trigger("yoyoEvent");
+
+
+
+    fumePush.bindOnce("onceEvent!", function(data){
+        console.log("yolo called only once!!" + data);
+    })
+
+    fumePush.trigger("onceEvent!", "get fire!");
+    fumePush.trigger("onceEvent!", "dont fire!");
+
 
 
     setInterval(function(){

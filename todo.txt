@@ -1,0 +1,2 @@
+- method & property description @SocketServer.js
+- disconnect method for client

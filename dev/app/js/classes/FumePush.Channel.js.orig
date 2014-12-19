@@ -102,8 +102,11 @@ var Channel = (function(){
         this._socket.on(event, function(data){
             if(that._isBlacklisted(event)) return 0;
             if(data.room != "FumePush:PUBLIC" && that._channelName != data.room) return 0;
+<<<<<<< HEAD
 
             //console.log(that._channelName + ".on('%s', '%s')", event, data.data);
+=======
+>>>>>>> gh-pages
             callback.call(that, data.data)
         })
     };

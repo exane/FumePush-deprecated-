@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>dev\app\js\classes\FumePush.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+        
+	    <img alt="" src="../assets/css/logo.png" style="max-height: 65%;" title="">
+        
+            
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b></b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Channel", "classes/FumePush", "classes/Socket", "modules/Client", "modules/Server"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+    <h3>APIs</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" placeholder="Type to filter APIs">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="classes">
+                <ul id="api-classes" class="nav nav-list">
+                    
+                        <li><a href="../classes/Channel.html">Channel</a></li>
+                    
+                        <li><a href="../classes/FumePush.html">FumePush</a></li>
+                    
+                        <li><a href="../classes/Socket.html">Socket</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    
+                        <li><a href="../modules/Client.html">Client</a></li>
+                    
+                        <li><a href="../modules/Server.html">Server</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+    <h1>dev\app\js\classes\FumePush.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * @module Client
+ */
+var FumePush = (function(){
+
+    var Channel = require(&quot;./FumePush.Channel&quot;);
+
+    /**
+     * Constructor
+     * @param {string} url
+     * @param {number} port
+     * @class FumePush
+     * @constructor
+     */
+    var FumePush = function(url, port){
+        this._connect.call(this, url, port);
+
+    };
+
+
+    var r = FumePush.prototype;
+
+    /**
+     * socket.io instance object.
+     * @property _socket
+     * @type {object}
+     * @private
+     */
+    r._socket = null;
+
+
+
+    /**
+     * List of all joined channels.
+     * @property _rooms
+     * @private
+     * @type {Array}
+     */
+    r._rooms = [];
+
+
+
+
+
+    /**
+     * Creates new instance of socket.io and saves into socket property.
+     * @param url
+     * @param port
+     * @method _connect
+     * @private
+     */
+    r._connect = function(url, port){
+        this._socket = io.connect(url + &quot;:&quot; + port);
+    };
+
+
+
+
+
+    /**
+     * Send an event to all channels.
+     * @param {string} event
+     * @param {object} data
+     * @method trigger
+     * @public
+     */
+    r.trigger = function(event, data){
+        var isBroadcasting = isBroadcasting || false;
+        //console.log(&quot;FumePush&quot; + &quot;.trigger(&#x27;%s&#x27;, &#x27;%s&#x27;)&quot;, event, data);
+        this._socket.emit(&quot;Trigger:Event&quot;, {
+            room: &quot;FumePush:PUBLIC&quot;,
+            event: event,
+            data: data,
+            isBroadcasting: isBroadcasting,
+            toAll: true
+        });
+    };
+
+
+
+
+    /**
+     * Creates a listener event which fires the callback whenever any channel calls.
+     * @method bind
+     * @param {string} event
+     * @param {function} callback
+     * @public
+     */
+    r.bind = function(event, callback){
+        var that = this;
+        this._socket.on(event, function(data){
+            //if(data.room != &quot;FumePush:PUBLIC&quot; &amp;&amp; that.channelName != data.room) return 0;
+            //console.log(&quot;FumePush&quot; + &quot;.on(&#x27;%s&#x27;, &#x27;%s&#x27;)&quot;, event, data.data);
+            callback.call(that, data.data)
+        })
+    };
+
+
+    /**
+     * Removes event listeners in all channels of this socket
+     * @method unbind
+     * @param {string} event
+     * @public
+     */
+    r.unbind = function(event){
+        this._socket.removeAllListeners(event);
+    }
+
+
+    /**
+     * Creates EventListener which fires callback once
+     * @method bindOnce
+     * @param {string} event
+     * @param {function} callback
+     * @public
+     */
+    r.bindOnce = function(event, callback){
+        var that = this;
+        this._socket.once(event, function(data){
+            callback.call(that, data.data)
+        })
+    }
+
+
+
+
+    /**
+     * Create and returns a new instance of Channel.
+     * @param {string} channelName
+     * @method subscribe
+     * @public
+     * @return {Channel} new Channel Instance
+     */
+    r.subscribe = function(channelName){
+        var channel = new Channel(this._socket, channelName);
+        this._rooms.push(channelName);
+        return channel;
+    };
+
+
+    /**
+     * Leaves the channel.
+     * @param {string} channelName
+     * @method unsubscribe
+     * @public
+     */
+    r.unsubscribe = function(channelName){
+        this._rooms.splice(channelName);
+        this._socket.emit(&quot;Leave:Room&quot;, channelName);
+        for(var i = 0; i &lt; this._rooms.length; i++) {
+            if(this._rooms[i] == channelName)
+                return this._rooms.splice(i, 1);
+        }
+
+
+    };
+
+
+    /**
+     * Not implemented yet.
+     * @method disconnect
+     * @public
+     */
+    r.disconnect = function(){
+        //console.log(&quot;not implemented yet&quot;);
+    };
+
+    return FumePush;
+})();
+
+module.exports = FumePush;
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

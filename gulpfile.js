@@ -5,7 +5,7 @@ var uglify = require("gulp-uglify");
 var browserify = require("browserify");
 var source = require('vinyl-source-stream');
 var streamify = require("gulp-streamify");
-var yuidoc = require("gulp-yuidoc");
+var exec = require("child_process").exec;
 
 
 gulp.task("scripts", function(){
@@ -24,17 +24,20 @@ gulp.task("scripts", function(){
         .pipe(gulp.dest("production"));
 });
 
-gulp.task("doc", function(){
-    gulp.src("dev/app/js/classes/*.js")
-        .pipe(yuidoc.parser())
-        .pipe(yuidoc.generator())
-        .pipe(gulp.dest("./doc"));
+gulp.task("docs", function(){
+    // requires yuidocjs installed globally
+    exec("yuidoc . -o ./docs -t ./node_modules/yuidoc-bootstrap-theme -H ./node_modules/yuidoc-bootstrap-theme/helpers/helpers.js",
+        function(err, stdout, stderr){
+            if(err)
+                console.log(err);
+
+        });
 })
 
 
 gulp.task("watch", function(){
-    gulp.watch("dev/app/js/classes/*.js", ["scripts", "doc"]);
-    gulp.watch("dev/server/classes/*.js", ["scripts"]);
+    gulp.watch("dev/app/js/classes/*.js", ["scripts", "docs"]);
+    gulp.watch("dev/server/classes/*.js", ["scripts", "docs"]);
 });
 
-gulp.task('default', ["scripts", "watch", "doc"]);
+gulp.task('default', ["scripts", "docs", "watch"]);

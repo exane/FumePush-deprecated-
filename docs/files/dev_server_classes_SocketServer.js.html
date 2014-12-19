@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>dev\server\classes\SocketServer.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+        
+	    <img alt="" src="../assets/css/logo.png" style="max-height: 65%;" title="">
+        
+            
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b></b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Channel", "classes/FumePush", "classes/Socket", "modules/Client", "modules/Server"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+    <h3>APIs</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" placeholder="Type to filter APIs">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="classes">
+                <ul id="api-classes" class="nav nav-list">
+                    
+                        <li><a href="../classes/Channel.html">Channel</a></li>
+                    
+                        <li><a href="../classes/FumePush.html">FumePush</a></li>
+                    
+                        <li><a href="../classes/Socket.html">Socket</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    
+                        <li><a href="../modules/Client.html">Client</a></li>
+                    
+                        <li><a href="../modules/Server.html">Server</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+    <h1>dev\server\classes\SocketServer.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * @module Server
+ */
+
+var Socket = (function(){
+
+    /**
+     * Constructor
+     * @class Socket
+     * @param {number} port
+     * @constructor
+     */
+    var Socket = function(port){
+        this.port = port;
+        this._listen();
+    };
+    var r = Socket.prototype;
+
+
+    /**
+     * @property {Number} port
+     * @private
+     */
+    r.port = null;
+
+
+    /**
+     * @property {Object} io
+     * @private
+     */
+    r.io = null;
+
+
+    /**
+     *
+     * @property {Array} rooms
+     * @private
+     */
+    r._rooms = [];
+
+
+    /**
+     *
+     * @type {Array} events
+     * @private
+     */
+    r._events = [];
+
+
+    /**
+     *
+     * @type {Array} bindings
+     * @private
+     */
+    r._bindings = [];
+
+
+
+    /**
+     * @method _listen
+     * @private
+     *
+     */
+    r._listen = function(){
+        this.io = require(&quot;socket.io&quot;).listen(this.port, {log: false});
+        this._onConnection();
+    };
+
+
+
+
+    /**
+     * @method _onConnection
+     * @private
+     */
+    r._onConnection = function(){
+        var that = this;
+        this.io.on(&quot;connection&quot;, function(socket){
+            that._onDisconnect(socket);
+            that._onTriggerEvent(socket);
+            that._onJoinEvent(socket);
+            that._onLeaveEvent(socket);
+            that._onUnbindEvent(socket);
+        })
+    };
+
+
+
+
+
+    /**
+     * @method _onDisconnect
+     * @private
+     * @param {Object} socket
+     */
+    r._onDisconnect = function(socket){
+        socket.on(&quot;disconnect&quot;, function(){
+            //console.log(&quot;user disconnected&quot;);
+
+        })
+    };
+
+    r._onUnbindEvent = function(socket){
+        var that = this;
+        socket.on(&quot;FumePush:unbind&quot;, function(event){
+            that.io.removeListener(event, function(){});
+            socket.removeListener(event, function(){});
+        });
+    }
+
+
+
+
+    /**
+     * @method _onTriggerEvent
+     * @private
+     * @param {Object} socket
+     */
+    r._onTriggerEvent = function(socket){
+        var that = this;
+        socket.on(&quot;Trigger:Event&quot;, function(data){
+            if(data.isBroadcasting)
+                that.broadcast(socket, data);
+            else if(data.toAll)
+                that._trigger(socket, data, true);
+            else
+                that._trigger(socket, data);
+        })
+    };
+
+
+
+    /**
+     * @method _onJoinEvent
+     * @private
+     * @param {Object} socket
+     */
+    r._onJoinEvent = function(socket){
+        var that = this;
+        socket.on(&quot;Join:Room&quot;, function(channel){
+            //console.log(&quot;joined room&quot;);
+            socket.join(channel);
+            for(var i = 0; i &lt; that._rooms.length; i++)
+                if(that._rooms[i] == channel) return 0;
+            that._rooms.push(channel);
+        })
+    };
+
+
+    /**
+     * @method _onLeaveEvent
+     * @private
+     * @param {Object} socket
+     */
+    r._onLeaveEvent = function(socket){
+        var that = this;
+        socket.on(&quot;Leave:Room&quot;, function(channel){
+            //console.log(&quot;leaved room&quot;, channel);
+            socket.leave(channel);
+            for(var i = 0; i &lt; that._rooms.length; i++) {
+                if(that._rooms[i] != channel) continue;
+                return that._rooms.splice(i, 1);
+            }
+        })
+    };
+
+
+    /**
+     * @method _addEvent
+     * @private
+     * @param {string} event
+     */
+    r._addEvent = function(event){
+        this._events.push(event);
+    };
+
+
+    /**
+     * @method _removeEvent
+     * @param {string} event
+     * @private
+     */
+    r._removeEvent = function(event){
+        for(var i = 0; i &lt; this._events.length; i++) {
+            if(this._events[i] != event) continue;
+            this._events.splice(i, 1);
+            return this._removeEvent(event); //just in case
+        }
+    };
+
+
+    /**
+     * @method _hasEvent
+     * @param {string} event
+     * @private
+     * @returns {boolean}
+     */
+    r._hasEvent = function(event){
+        for(var i = 0; i &lt; this._events.length; i++)
+            if(this._events[i] == event) return true;
+        return false;
+    };
+
+
+    /**
+     * @method _trigger
+     * @param {Object} socket
+     * @param {Object} data
+     * @param {boolean} [toAll=false]
+     * @private
+     */
+    r._trigger = function(socket, data, toAll){
+        toAll = toAll || false;
+        ////console.log(&quot;sending to &quot; + data.room + &quot; with event &quot; + data.event);
+        this._callBindings(socket, data);
+        if(toAll)
+            this.io.sockets.emit(data.event, data);
+        else
+            this.io.sockets.to(data.room).emit(data.event, data);
+    };
+
+
+    /**
+     * @method broadcast
+     * @param {object} socket
+     * @param {object} data
+     * @public
+     */
+    r.broadcast = function(socket, data){
+        socket.broadcast.emit(data.event, data);
+    };
+
+
+    /**
+     * @method bind
+     * @param {string} event
+     * @param {function} cb
+     * @public
+     */
+    r.bind = function(event, cb){
+        this._bindings.push({event: event, cb: cb});
+    };
+
+
+    /**
+     * @method _callBindings
+     * @param {object} socket
+     * @param {object} data
+     * @private
+     */
+    r._callBindings = function(socket, data){
+        for(var i = 0; i &lt; this._bindings.length; i++) {
+            if(this._bindings[i].event !== data.event) continue;
+            this._bindings[i].cb.call(this, data);
+        }
+    };
+
+
+    /**
+     * @method trigger
+     * @param {string} event
+     * @param {object} data
+     * @param {string} [room]
+     */
+    r.trigger = function(event, data, room){
+        room = room || &quot;FumePush:PUBLIC&quot;;
+        data = {
+            event: event,
+            data: data,
+            room: room
+        };
+
+        if(room !== &quot;FumePush:PUBLIC&quot;)
+            this.io.sockets.to(room).emit(event, data);
+        else
+            this.io.sockets.emit(event, data);
+    }
+
+
+    return Socket;
+})();
+
+module.exports = Socket;
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
