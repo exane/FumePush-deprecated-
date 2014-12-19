@@ -2,13 +2,6 @@ FumePush
 ========
 # Install
 
-## dev
-```javascript
-cmd cd root
-npm install
-gulp
-```
-
 ## Fast use
 ### Client
 copy both files of /bin/ to your project.
@@ -33,6 +26,14 @@ var FumePush = require('./path/to/FumePushServer.min.js');
 
 var socket = new FumePush(port); // Remember, same port as client and socket.io!
 ```
+
+## dev
+```javascript
+cmd cd root
+npm install
+gulp
+```
+
 
 # Syntax
 
