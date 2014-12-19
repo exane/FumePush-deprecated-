@@ -1,5 +1,39 @@
 FumePush
 ========
+# Install
+
+## dev
+```javascript
+cmd cd root
+npm install
+gulp
+```
+
+## Fast use
+### Client
+copy both files of /bin/ to your project.
+include the following for client:
+```html
+<script src="//localhost:4567/socket.io/socket.io.js"></script> // paste here your url and port you want to use
+<script src="bin/FumePushClient.min.js"></script>
+```
+and then you can use it wherever you want
+```javascript
+var socket = new FumePush(url, port); // important! url and port have to be the same as by socket.io above!
+socket.bind(...);
+socket.subscribe(...);
+...
+...
+```
+
+### Server
+create the following file:
+```javascript
+var FumePush = require('./path/to/FumePushServer.min.js');
+
+var socket = new FumePush(port); // Remember, same port as client and socket.io!
+```
+
 # Syntax
 
 ## Server
