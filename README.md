@@ -26,6 +26,16 @@ var FumePush = require('./path/to/FumePushServer.min.js');
 
 var socket = new FumePush(port); // Remember, same port as client and socket.io!
 ```
+After that you can run server with
+```cmd
+cd path/to/server
+node server.js
+```
+
+### Debug-Console
+if you want to use the debug-console then copy the folder
+debug-console into your project and change the url and port to 
+match your client-server config. (i.e.: same url and port as for socket.io)
 
 
 ## dev
