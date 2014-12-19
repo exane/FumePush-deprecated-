@@ -20,12 +20,13 @@ socket.subscribe(...);
 ```
 
 ### Server
-create the following file:
+create the following file as server.js (or whatever you want):
 ```javascript
 var FumePush = require('./path/to/FumePushServer.min.js');
 
 var socket = new FumePush(port); // Remember, same port as client and socket.io!
 ```
+
 
 ## dev
 ```javascript
