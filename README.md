@@ -7,12 +7,11 @@ FumePush
 copy both files of /bin/ to your project.
 include the following for client:
 ```html
-<script src="//localhost:4567/socket.io/socket.io.js"></script> // paste here your url and port you want to use
 <script src="bin/FumePushClient.min.js"></script>
 ```
 and then you can use it wherever you want
 ```javascript
-var socket = new FumePush(url, port); // important! url and port have to be the same as by socket.io above!
+var socket = new FumePush(url, port); // paste here your url and port you want to use
 socket.bind(...);
 socket.subscribe(...);
 ...
@@ -24,7 +23,7 @@ create the following file as server.js (or whatever you want):
 ```javascript
 var FumePush = require('./path/to/FumePushServer.min.js');
 
-var socket = new FumePush(port); // Remember, same port as client and socket.io!
+var socket = new FumePush(port); // Remember, same port as client!
 ```
 After that you can run server with
 ```cmd
