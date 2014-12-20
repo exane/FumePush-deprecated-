@@ -4,6 +4,7 @@
 var FumePush = (function(){
 
     var Channel = require("./FumePush.Channel");
+    var io = require("socket.io-browserify");
 
     /**
      * Constructor
@@ -30,8 +31,6 @@ var FumePush = (function(){
      */
     r._socket = null;
 
-
-
     /**
      * List of all joined channels.
      * @property _rooms
@@ -39,10 +38,6 @@ var FumePush = (function(){
      * @type {Array}
      */
     r._rooms = [];
-
-
-
-
 
     /**
      * Creates new instance of socket.io and saves into socket property.
@@ -54,10 +49,6 @@ var FumePush = (function(){
     r._connect = function(url, port){
         this._socket = io.connect(url + ":" + port);
     };
-
-
-
-
 
     /**
      * Send an event to all channels.
@@ -92,9 +83,6 @@ var FumePush = (function(){
         return true;
     }
 
-
-
-
     /**
      * Creates a listener event which fires the callback whenever any channel calls.
      * @method bind
@@ -112,7 +100,6 @@ var FumePush = (function(){
         })
     };
 
-
     /**
      * Removes event listeners in all channels of this socket
      * @method unbind
@@ -122,7 +109,6 @@ var FumePush = (function(){
     r.unbind = function(event){
         this._socket.removeAllListeners(event);
     }
-
 
     /**
      * Creates EventListener which fires callback once
@@ -138,9 +124,6 @@ var FumePush = (function(){
         })
     }
 
-
-
-
     /**
      * Create and returns a new instance of Channel.
      * @param {string} channelName
@@ -153,7 +136,6 @@ var FumePush = (function(){
         this._rooms.push(channelName);
         return channel;
     };
-
 
     /**
      * Leaves the channel.
@@ -171,7 +153,6 @@ var FumePush = (function(){
 
 
     };
-
 
     /**
      * Not implemented yet.

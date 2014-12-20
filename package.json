@@ -3,15 +3,16 @@
   "version": "0.1.1",
   "description": "fumePush",
   "dependencies": {
+    "browserify": "~4.1.2",
     "gulp": "~3.6.2",
     "gulp-concat": "~2.2.0",
+    "gulp-exec": "~2.0.1",
+    "gulp-streamify": "0.0.5",
     "gulp-uglify": "~0.2.1",
     "socket.io": "~0.9.16",
-    "browserify": "~4.1.2",
+    "socket.io-browserify": "^0.9.6",
     "vinyl-source-stream": "~0.1.1",
-    "gulp-streamify": "0.0.5",
-    "yuidoc-bootstrap-theme": "~1.0.0",
-    "gulp-exec": "~2.0.1"
+    "yuidoc-bootstrap-theme": "~1.0.0"
   },
   "devDependencies": {},
   "repository": {

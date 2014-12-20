@@ -3,6 +3,7 @@ var main = (function(){
 
     var fumePush = new FumePush("//localhost", 4567);
 
+
     var yolo = fumePush.subscribe("yolo");
     var swag = fumePush.subscribe("swag");
     var testUnbind = fumePush.subscribe("test1");
