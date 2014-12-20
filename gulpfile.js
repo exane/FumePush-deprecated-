@@ -9,9 +9,11 @@ var exec = require("child_process").exec;
 
 
 gulp.task("scripts", function(){
-    gulp.src("./dev/app/js/classes/FumePush.js")
-    .pipe(concat("FumePushClient.js"))
-    .pipe(gulp.dest("bin"));
+    browserify("./dev/app/js/classes/FumePush.js")
+    .bundle({standalone: "FumePush"})
+    .pipe(source("FumePushClient.js"))
+    .pipe(gulp.dest("bin"))
+    .pipe(gulp.dest("dev/app/libs"));
 
     gulp.src("dev/server/classes/SocketServer.js")
     .pipe(concat("FumePushServer.js"))
