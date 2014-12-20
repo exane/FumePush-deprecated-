@@ -4,7 +4,7 @@
   "description": "fumePush",
   "dependencies": {
     "browserify": "~4.1.2",
-    "gulp": "~3.6.2",
+    "gulp": "*",
     "gulp-concat": "~2.2.0",
     "gulp-exec": "~2.0.1",
     "gulp-streamify": "0.0.5",

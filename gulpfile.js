@@ -9,29 +9,36 @@ var exec = require("child_process").exec;
 
 
 gulp.task("scripts", function(){
-    //gulp.src("dev/app/js/classes/FumePush.js")
+    gulp.src("./dev/app/js/classes/FumePush.js")
+    .pipe(concat("FumePushClient.js"))
+    .pipe(gulp.dest("bin"));
+
+    gulp.src("dev/server/classes/SocketServer.js")
+    .pipe(concat("FumePushServer.js"))
+    .pipe(gulp.dest("bin"));
+
     browserify("./dev/app/js/classes/FumePush.js")
-        .bundle({standalone: "FumePush"})
-        .pipe(source("FumePushClient.min.js"))
-        .pipe(streamify(uglify()))
-        .pipe(gulp.dest("bin"))
-        .pipe(gulp.dest("dev/app/libs"));
+    .bundle({standalone: "FumePush"})
+    .pipe(source("FumePushClient.min.js"))
+    .pipe(streamify(uglify()))
+    .pipe(gulp.dest("bin"))
+    .pipe(gulp.dest("dev/app/libs"));
 
 
     gulp.src("dev/server/classes/SocketServer.js")
-        .pipe(uglify())
-        .pipe(concat("FumePushServer.min.js"))
-        .pipe(gulp.dest("bin"));
+    .pipe(uglify())
+    .pipe(concat("FumePushServer.min.js"))
+    .pipe(gulp.dest("bin"));
 });
 
 gulp.task("docs", function(){
     // requires yuidocjs installed globally
     exec("yuidoc . -o ./docs -t ./node_modules/yuidoc-bootstrap-theme -H ./node_modules/yuidoc-bootstrap-theme/helpers/helpers.js",
-        function(err, stdout, stderr){
-            if(err)
-                console.log(err);
+    function(err, stdout, stderr){
+        if(err)
+            console.log(err);
 
-        });
+    });
 })
 
 
