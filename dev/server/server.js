@@ -7,6 +7,11 @@ fumePush.bind("blubb test", function(data){
     console.log("event called on server! room: " + data.room + " event: " + data.event + " data: "+data.data);
 });
 
+fumePush.bind("Send:msg", function(data){
+    console.log("event called on server! room: " + data.room + " event: " + data.event + " data: "+data.data);
+});
+
+
 setInterval(function(){
     //fumePush.trigger("eventFromServer", "yoloEventServer", "yolo");
 },2000);

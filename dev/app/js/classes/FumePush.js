@@ -4,7 +4,8 @@
 var FumePush = (function(){
 
     var Channel = require("./FumePush.Channel");
-    var io = require("socket.io-browserify");
+    //var io = require("socket.io-browserify");
+    var io = require("./socket.io.1.2.1.js");
 
     /**
      * Constructor
